@@ -1,3 +1,4 @@
+import com.codeborne.selenide.Config;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -21,9 +22,12 @@ public class SimpleTest {
 
         open("/selenide/selenide");
         $("#wiki-tab").click();
-        $(byText("Soft assertions")).click();
-
-        String jUnitExample ="@ExtendWith({SoftAssertsExtension.class})\n" +
+        $("#wiki-pages-box").scrollIntoView(true);
+        $(".wiki-rightbar ul li button").click();
+        $(".wiki-rightbar ul").shouldHave(text("SoftAssertions"));
+        $("#wiki-pages-box").$(byText("SoftAssertions")).click();
+        $("#user-content-3-using-junit5-extend-test-class").scrollIntoView(true);
+        $("#user-content-3-using-junit5-extend-test-class").sibling(0).shouldHave(text("@ExtendWith({SoftAssertsExtension.class})\n" +
                 "class Tests {\n" +
                 "  @Test\n" +
                 "  void test() {\n" +
@@ -33,7 +37,6 @@ public class SimpleTest {
                 "    $(\"#first\").should(visible).click();\n" +
                 "    $(\"#second\").should(visible).click();\n" +
                 "  }\n" +
-                "}";
-        $("#user-content-3-using-junit5-extend-test-class").sibling(0).shouldHave(text(jUnitExample));
+                "}"));
     }
 }
